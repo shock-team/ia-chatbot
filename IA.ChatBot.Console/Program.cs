@@ -11,20 +11,23 @@ namespace IA.ChatBot.ConsoleApp
     {
         static void Main(string[] args)
         {
-            Bot AI = new Bot();
-            AI.loadSettings();
-            AI.loadAIMLFromFiles(); 
-            AI.isAcceptingUserInput = false;
+            // Loads data from .xml files.
+            Bot bot = new Bot();
+            bot.loadSettings();
+            bot.loadAIMLFromFiles(); 
+            bot.isAcceptingUserInput = false;
 
-            User myUser = new User("Santi", AI);
-            AI.isAcceptingUserInput = true;
+            // Needed to accept user input.
+            User myUser = new User("Santi", bot);
+            bot.isAcceptingUserInput = true;
 
+            // Chat indefinitely with the bot.
             while (true)
             {
                 Console.Write("Me: ");
-                Request r = new Request(Console.ReadLine(), myUser, AI);
+                Request r = new Request(Console.ReadLine(), myUser, bot);
 
-                Result res = AI.Chat(r);
+                Result res = bot.Chat(r);
 
                 Console.WriteLine("Shock!Bot: " + res.Output);
             }
